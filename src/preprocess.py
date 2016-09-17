@@ -1,6 +1,9 @@
 #!/usr/bin/python
 import sys
 
+
+common_words = ["THE", "BE", "TO", "OF", "AND", "A", "IN", "THAT", "HAVE", "I", "IT", "FOR", "NOT", "ON", "WITH", "HE", "AS", "YOU", "DO", "AT", "THIS", "BUT", "HIS", "BY", "FROM", "THEY", "WE", "SAY", "HER", "SHE", "OR", "AN", "WILL", "MY", "ONE", "ALL", "WOULD", "THERE", "THEIR", "WHAT", "SO", "UP", "OUT", "IF", "ABOUT", "WHO", "GET", "WHICH", "GO", "ME", "WHEN", "MAKE", "CAN", "LIKE", "TIME", "NO", "JUST", "HIM", "KNOW", "TAKE", "PEOPLE", "INTO", "YEAR", "YOUR", "GOOD", "SOME", "COULD", "THEM", "SEE", "OTHER", "THAN", "THEN", "NOW", "LOOK", "ONLY", "COME", "ITS", "OVER", "THINK", "ALSO", "BACK", "AFTER", "USE", "TWO", "HOW", "OUR", "WORK", "FIRST", "WELL", "WAY", "EVEN", "NEW", "WANT", "BECAUSE", "ANY", "THESE", "GIVE", "DAY", "MOST", "US"]
+
 def prep_paper(paper):
 	return paper.strip().replace("?",".").replace("!",".").upper()
 
@@ -23,8 +26,19 @@ def split_words(phrases):
 			words.append(some_word[i]);
 	return words
 
+def index_words(words):
+	indexing = []
+	for i in range(len(words)):
+		indexing.append((words[i],i))
+	return indexing
+
 def clean_empties(string_list):
 	return filter(lambda a: a != '', string_list)
+
+def clean_common(words):
+	for common in common_words:
+		while common in words: words.remove(common)
+	return words
 
 def frequency_table(words):
 	keys = []
@@ -45,12 +59,16 @@ def frequency_table(words):
 		table.append((keys[i],value[i]))	
 	return table
 
+
 paper = sys.argv[1]
 paper = prep_paper(paper)
 sentences = split_sentence(paper)
 phrases = split_phrases(sentences)
 words = split_words(phrases)
 words = clean_empties(words)
+indexing = index_words(words)
+words = clean_common(words)
 print (words)
-print ("Table:");
+print ("Table:")
 print(frequency_table(words))
+print(indexing)
