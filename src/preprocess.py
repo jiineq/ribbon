@@ -1,7 +1,6 @@
 #!/usr/bin/python
 import sys
 
-
 common_words = ["THE", "BE", "TO", "OF", "AND", "A", "IN", "THAT", "HAVE", "I", "IT", "FOR", "NOT", "ON", "WITH", "HE", "AS", "YOU", "DO", "AT", "THIS", "BUT", "HIS", "BY", "FROM", "THEY", "WE", "SAY", "HER", "SHE", "OR", "AN", "WILL", "MY", "ONE", "ALL", "WOULD", "THERE", "THEIR", "WHAT", "SO", "UP", "OUT", "IF", "ABOUT", "WHO", "GET", "WHICH", "GO", "ME", "WHEN", "MAKE", "CAN", "LIKE", "TIME", "NO", "JUST", "HIM", "KNOW", "TAKE", "PEOPLE", "INTO", "YEAR", "YOUR", "GOOD", "SOME", "COULD", "THEM", "SEE", "OTHER", "THAN", "THEN", "NOW", "LOOK", "ONLY", "COME", "ITS", "OVER", "THINK", "ALSO", "BACK", "AFTER", "USE", "TWO", "HOW", "OUR", "WORK", "FIRST", "WELL", "WAY", "EVEN", "NEW", "WANT", "BECAUSE", "ANY", "THESE", "GIVE", "DAY", "MOST", "US"]
 
 def prep_paper(paper):
@@ -60,15 +59,15 @@ def frequency_table(words):
 	return table
 
 
-paper = sys.argv[1]
-paper = prep_paper(paper)
-sentences = split_sentence(paper)
-phrases = split_phrases(sentences)
-words = split_words(phrases)
-words = clean_empties(words)
-indexing = index_words(words)
-words = clean_common(words)
-print (words)
-print ("Table:")
-print(frequency_table(words))
-print(indexing)
+#paper = sys.argv[1]
+#paper = prep_paper(paper)
+#sentences = split_sentence(paper)
+#phrases = split_phrases(sentences)
+#words = split_words(phrases)
+#words = clean_empties(words)
+#indexing = index_words(words)
+#words = clean_common(words)
+#print (words)
+#print ("Table:")
+#print(frequency_table(words))
+#print(indexing)
