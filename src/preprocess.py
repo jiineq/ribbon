@@ -6,7 +6,7 @@ common_words = ["THE", "BE", "TO", "OF", "AND", "A", "IN", "THAT", "HAVE", "I", 
 def prep_paper(paper):
 	return paper.strip().replace("?",".").replace("!",".").upper()
 
-def split_sentence(paper):
+def split_sentences(paper):
 	return paper.split(".")
 
 def split_phrases(sentences):
@@ -61,7 +61,7 @@ def frequency_table(words):
 
 #paper = sys.argv[1]
 #paper = prep_paper(paper)
-#sentences = split_sentence(paper)
+#sentences = split_sentences(paper)
 #phrases = split_phrases(sentences)
 #words = split_words(phrases)
 #words = clean_empties(words)
