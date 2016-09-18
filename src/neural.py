@@ -1,5 +1,6 @@
 #!/usr/bin/python
 from preprocess import *
+from weights import *
 from math import *
 from sympy import Matrix
 
@@ -19,21 +20,42 @@ def hash_word(word):
 	return float(string)/10**(len(string))
 
 def forward(words_vec):
-	for i in range(10):
-		words_vec = sigmoid(w[i]*words_vec)
+	for i in range(8):
+		words_vec = sigmoid(weights[i]*words_vec)
 	return words_vec
 
+
+
+weights = load_weights()
+
+#Load Words
 paper = prep_paper(sys.argv[1])
 words = split_words(split_phrases(split_sentences(paper)))
 words = clean_empties(words)
-
 indexing = index_words(words)
-#words = clean_common(words)
+#print(words)
 
-print(words)
-
+#Matrix Form
 word_vec = Matrix(len(words), 1, vec_convert)
 
-print word_vec
+#print weights[0]
+values = []
+print(word_vec.rows)
+for i in range(word_vec.rows):
+	for j in range(5):
+		values.append(weights[0][i%weights[0].rows,j])
+print values
+weights[0] = Matrix(word_vec.rows, 5, values)
+print weights[0]
 
+values = []
+for i in range(word_vec.cols):
+	for j in range(5):
+		values.append(weights[7].transpose()[i%weights[7].transpose().cols,j])
+weights[7] = Matrix(5, word_vec.cols, values)
+
+
+word_vec = forward(word_vec)
+
+print word_vec
 
