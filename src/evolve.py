@@ -13,6 +13,7 @@ def hash_word(word):
 
 def process():
 	average_err = 1
+	iteration = 1
 	while(abs(average_err) > .15):
 		def vec_convert(i,j):
 			return hash_word(words[i]) 
@@ -42,6 +43,9 @@ def process():
 		print("Average Error: " + str(average_err))
 		weights[0] = resize(weights[0])
 		weights[7] = resize(weights[7])
+		iteration += 1
+		if(iteration % 15 == 0):
+			save_weights(weights)
 	return(words, end_vec)
 
 weights = load_weights()
