@@ -1,27 +1,38 @@
 #!/usr/bin/python
 from sympy import Matrix, eye
+from sympy.matrices import randMatrix
 
 def load_weights():
 	weights = [0,0,0,0,0,0,0,0]
 	for i in range(8):
 		try:
-			f = open("./weight" + str(i), "r")
+			f = open("../weights/weight" + str(i), "r")
 			content =  f.read().split(",")
 			def readmatrix(i,j):
 				return content[i*5+j]
 		
 			weights[i] = Matrix(5,5,readmatrix)
 		except:
-			weights[i] = eye(5)
+			weights[i] = randMatrix(5,5,1,9999)/10000.0
 	return weights
 
 def save_weights(weights):	
 	for i in range(8):
-		print weights[i]
-		f = open("./weight" + str(i), "w")
+		#print weights[i]
+		f = open("../weights/weight" + str(i), "w")
 		for j in range(5):
 			for k in range(5):
 				f.write(str(weights[i][j,k]) + ',')
+
+def mutate(weight, rate):
+	for i  in range(weight.rows):
+		for j in range(weight.cols):
+			if(random.uniform(0,1) > .5
+				weight[i,j] = (1+(random.random()*rate)) * weight[i,j]
+			else:
+				weight[i,j] = (1-(random.random()*rate)) * weight[i,j]
+	return weight
+
 
 def adjust_weight_row(weight, new_size):
 	diff = new_size - weight.rows
@@ -29,7 +40,7 @@ def adjust_weight_row(weight, new_size):
 	for i in range(diff):
 		new_row = weight[i%(original_size):i%(original_size)+1,0:5]
 		weight = Matrix([weight,new_row])
-		print(weight)
+	#	print(weight)
 	return weight
 
 def adjust_weight_col(weight, new_size):
@@ -38,7 +49,11 @@ def adjust_weight_col(weight, new_size):
 	for i in range(diff):
 		new_col = weight.transpose()[i%(original_size):i%(original_size)+1,0:5]
 		weight = Matrix([weight.transpose(),new_col]).transpose()
-		print(weight)
+	#	print(weight)
+	return weight
+
+def resize(weight):
+	weight = Matrix[0:5,0:5]
 	return weight
 
 #weights = load_weights()

@@ -8,7 +8,7 @@ def vec_convert(i,j):
 	return hash_word(words[i])
 
 def sigmoid(x):
-	return (1.0)/(1 + e**(-x))
+	return (1.0)/(1.0 + e**(-x))
 
 def ddxsigmoid(x):
 	return sigmoid(x) * (1 - sigmoid(x))
@@ -21,7 +21,12 @@ def hash_word(word):
 
 def forward(words_vec):
 	for i in range(8):
-		words_vec = sigmoid(weights[i]*words_vec)
+	#	print(weights[i].rows,weights[i].cols, words_vec.rows, words_vec.cols)
+		words_vec = weights[i] * words_vec
+		for j in range(words_vec.rows):
+			for k in range(words_vec.cols):
+				words_vec[j,k] = sigmoid(words_vec[j,k])
+		
 	return words_vec
 
 
@@ -38,24 +43,19 @@ indexing = index_words(words)
 #Matrix Form
 word_vec = Matrix(len(words), 1, vec_convert)
 
-#print weights[0]
-values = []
-print(word_vec.rows)
-for i in range(word_vec.rows):
-	for j in range(5):
-		values.append(weights[0][i%weights[0].rows,j])
-print values
-weights[0] = Matrix(word_vec.rows, 5, values)
-print weights[0]
+#weight adjustments
+weights[0] = adjust_weight_col(weights[0],word_vec.rows)
+weights[7] = adjust_weight_row(weights[7],word_vec.rows)
 
-values = []
-for i in range(word_vec.cols):
-	for j in range(5):
-		values.append(weights[7].transpose()[i%weights[7].transpose().cols,j])
-weights[7] = Matrix(5, word_vec.cols, values)
+#print weights[7]
 
+
+#print(word_vec.rows,word_vec.cols)
+#print(weights[0].rows,weights[0].cols)
+#print(weights[7].rows,weights[7].cols)
 
 word_vec = forward(word_vec)
 
 print word_vec
 
+save_weights(weights)
