@@ -1,6 +1,7 @@
 #!/usr/bin/python
 from sympy import Matrix, eye
 from sympy.matrices import randMatrix
+from random import *
 
 def load_weights():
 	weights = [0,0,0,0,0,0,0,0]
@@ -12,6 +13,7 @@ def load_weights():
 				return content[i*5+j]
 		
 			weights[i] = Matrix(5,5,readmatrix)
+			f.close()
 		except:
 			weights[i] = randMatrix(5,5,1,9999)/10000.0
 	return weights
@@ -23,14 +25,14 @@ def save_weights(weights):
 		for j in range(5):
 			for k in range(5):
 				f.write(str(weights[i][j,k]) + ',')
-
+		f.close()
 def mutate(weight, rate):
-	for i  in range(weight.rows):
+	for i in range(weight.rows):
 		for j in range(weight.cols):
-			if(random.uniform(0,1) > .5
-				weight[i,j] = (1+(random.random()*rate)) * weight[i,j]
+			if(uniform(0,1) > .5):
+				weight[i,j] = (1+(random()*rate)) * weight[i,j]
 			else:
-				weight[i,j] = (1-(random.random()*rate)) * weight[i,j]
+				weight[i,j] = (1-(random()*rate)) * weight[i,j]
 	return weight
 
 
@@ -53,8 +55,7 @@ def adjust_weight_col(weight, new_size):
 	return weight
 
 def resize(weight):
-	weight = Matrix[0:5,0:5]
-	return weight
+	return weight[0:5,0:5]
 
 #weights = load_weights()
 #adjust_weight_row(weights[0],13)

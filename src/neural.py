@@ -19,7 +19,7 @@ def hash_word(word):
 		string += str(ord(c))
 	return float(string)/10**(len(string))
 
-def forward(words_vec):
+def forward(words_vec, weights):
 	for i in range(8):
 	#	print(weights[i].rows,weights[i].cols, words_vec.rows, words_vec.cols)
 		words_vec = weights[i] * words_vec
@@ -31,21 +31,21 @@ def forward(words_vec):
 
 
 
-weights = load_weights()
+#weights = load_weights()
 
 #Load Words
-paper = prep_paper(sys.argv[1])
-words = split_words(split_phrases(split_sentences(paper)))
-words = clean_empties(words)
-indexing = index_words(words)
+#paper = prep_paper(sys.argv[1])
+#words = split_words(split_phrases(split_sentences(paper)))
+#words = clean_empties(words)
+#indexing = index_words(words)
 #print(words)
 
 #Matrix Form
-word_vec = Matrix(len(words), 1, vec_convert)
+#word_vec = Matrix(len(words), 1, vec_convert)
 
 #weight adjustments
-weights[0] = adjust_weight_col(weights[0],word_vec.rows)
-weights[7] = adjust_weight_row(weights[7],word_vec.rows)
+#weights[0] = adjust_weight_col(weights[0],word_vec.rows)
+#weights[7] = adjust_weight_row(weights[7],word_vec.rows)
 
 #print weights[7]
 
@@ -54,8 +54,8 @@ weights[7] = adjust_weight_row(weights[7],word_vec.rows)
 #print(weights[0].rows,weights[0].cols)
 #print(weights[7].rows,weights[7].cols)
 
-word_vec = forward(word_vec)
+#end_vec = forward(word_vec)
 
-print word_vec
+#print end_vec
 
-save_weights(weights)
+#save_weights(weights)
