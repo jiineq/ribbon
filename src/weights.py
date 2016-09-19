@@ -26,12 +26,12 @@ def save_weights(weights):
 			for k in range(5):
 				f.write(str(weights[i][j,k]) + ',')
 		f.close()
-def mutate(weight, rate):
+def mutate(weight, rate, direction):
 	for i in range(weight.rows):
 		for j in range(weight.cols):
-			if(uniform(0,1) > .5):
+			if(direction == 1):
 				weight[i,j] = (1+(random()*rate)) * weight[i,j]
-			else:
+			elif(direction == -1):
 				weight[i,j] = (1-(random()*rate)) * weight[i,j]
 	return weight
 

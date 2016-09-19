@@ -11,15 +11,13 @@ def hash_word(word):
 
 
 
-def process():
+def process(i):
 	average_err = 1
 	iteration = 1
 	while(abs(average_err) > .15):
 		def vec_convert(i,j):
 			return hash_word(words[i]) 
-		for j in range(len(weights)):
-			#print(weights[j])
-			weights[j] = mutate(weights[j], .05)
+		
 		start = open("../training/art"+str(i+1)+"_raw.txt", "r")
 		paper = prep_paper(start.read())
 		start.close()
@@ -43,6 +41,11 @@ def process():
 		print("Average Error: " + str(average_err))
 		weights[0] = resize(weights[0])
 		weights[7] = resize(weights[7])
+		for j in range(len(weights)):
+			if(average_err > 0):
+				weights[j] = mutate(weights[j], .05, 1)
+			else:
+				weights[j] = mutate(weights[j], .05, -1)
 		iteration += 1
 		if(iteration % 15 == 0):
 			save_weights(weights)
@@ -52,7 +55,8 @@ weights = load_weights()
 
 
 for i in range(3):
-	vecs = process()
+	print("Thinking About...\tart"+str(i+1)+"_raw.txt")
+	vecs = process(i)
 	genhtml(vecs[0],vecs[1])
 
 save_weights(weights)	
