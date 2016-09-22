@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from sympy import Matrix, eye
+from sympy import Matrix, zeros
 from sympy.matrices import randMatrix
 from random import *
 
@@ -26,14 +26,17 @@ def save_weights(weights):
 			for k in range(5):
 				f.write(str(weights[i][j,k]) + ',')
 		f.close()
-def mutate(weight, rate, direction):
+
+def mutate(weight, rate):
+	mutant = zeros(weight.rows, weight.cols)
+
 	for i in range(weight.rows):
 		for j in range(weight.cols):
-			if(direction == 1):
-				weight[i,j] = (1+(random()*rate)) * weight[i,j]
-			elif(direction == -1):
-				weight[i,j] = (1-(random()*rate)) * weight[i,j]
-	return weight
+			if(uniform(0, .5) >.5):
+				mutant[i,j]=(weight[i,j] * (1+random()*rate))
+			else:
+				mutant[i,j]=(weight[i,j] * (1-random()*rate))
+	return mutant
 
 
 def adjust_weight_row(weight, new_size):

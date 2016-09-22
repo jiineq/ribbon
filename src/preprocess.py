@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import sys
+from sympy import zeros
 
 common_words = ["THE", "BE", "TO", "OF", "AND", "A", "IN", "THAT", "HAVE", "I", "IT", "FOR", "NOT", "ON", "WITH", "HE", "AS", "YOU", "DO", "AT", "THIS", "BUT", "HIS", "BY", "FROM", "THEY", "WE", "SAY", "HER", "SHE", "OR", "AN", "WILL", "MY", "ONE", "ALL", "WOULD", "THERE", "THEIR", "WHAT", "SO", "UP", "OUT", "IF", "ABOUT", "WHO", "GET", "WHICH", "GO", "ME", "WHEN", "MAKE", "CAN", "LIKE", "TIME", "NO", "JUST", "HIM", "KNOW", "TAKE", "PEOPLE", "INTO", "YEAR", "YOUR", "GOOD", "SOME", "COULD", "THEM", "SEE", "OTHER", "THAN", "THEN", "NOW", "LOOK", "ONLY", "COME", "ITS", "OVER", "THINK", "ALSO", "BACK", "AFTER", "USE", "TWO", "HOW", "OUR", "WORK", "FIRST", "WELL", "WAY", "EVEN", "NEW", "WANT", "BECAUSE", "ANY", "THESE", "GIVE", "DAY", "MOST", "US"]
 
@@ -58,6 +59,17 @@ def frequency_table(words):
 		table.append((keys[i],value[i]))	
 	return table
 
+def hash_word(word):
+	string = ""
+	for c in word:
+		string += str(ord(c))
+	return float(string)/10**(len(string))
+
+def word_vec_convert(words):
+	vector = zeros(len(words), 1)
+	for i in range(len(words)):
+		vector[i,0] = hash_word(words[i])
+	return vector
 
 #paper = sys.argv[1]
 #paper = prep_paper(paper)

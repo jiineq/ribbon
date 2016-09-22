@@ -1,11 +1,6 @@
 #!/usr/bin/python
-from preprocess import *
-from weights import *
 from math import *
 from sympy import Matrix
-
-def vec_convert(i,j):
-	return hash_word(words[i])
 
 def sigmoid(x):
 	return (1.0)/(1.0 + e**(-x))
@@ -13,20 +8,12 @@ def sigmoid(x):
 def ddxsigmoid(x):
 	return sigmoid(x) * (1 - sigmoid(x))
 
-def hash_word(word):
-	string = ""
-	for c in word:
-		string += str(ord(c))
-	return float(string)/10**(len(string))
-
 def forward(words_vec, weights):
 	for i in range(8):
-	#	print(weights[i].rows,weights[i].cols, words_vec.rows, words_vec.cols)
 		words_vec = weights[i] * words_vec
 		for j in range(words_vec.rows):
 			for k in range(words_vec.cols):
-				words_vec[j,k] = sigmoid(words_vec[j,k])
-		
+				words_vec[j,k] = sigmoid(words_vec[j,k])		
 	return words_vec
 
 
