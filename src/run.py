@@ -35,7 +35,10 @@ weights = load_weights()
 
 #Load Words
 f = open(sys.argv[1],"r")
-paper = prep_paper(f.read())
+paper = f.read()
+punctuation = get_punctuation(paper)
+caps = get_caps(paper)
+paper = prep_paper(paper)
 f.close()
 words = split_words(split_phrases(split_sentences(paper)))
 words = clean_empties(words)
@@ -49,8 +52,7 @@ weights[7] = adjust_weight_row(weights[7],word_vec.rows)
 
 end_vec = forward(word_vec, weights)
 
-print end_vec
+#print end_vec
+compose(words, end_vec, caps, punctuation)
 
-genhtml(words, end_vec)
 print("done")
-

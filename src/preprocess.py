@@ -4,6 +4,26 @@ from sympy import zeros
 
 common_words = ["THE", "BE", "TO", "OF", "AND", "A", "IN", "THAT", "HAVE", "I", "IT", "FOR", "NOT", "ON", "WITH", "HE", "AS", "YOU", "DO", "AT", "THIS", "BUT", "HIS", "BY", "FROM", "THEY", "WE", "SAY", "HER", "SHE", "OR", "AN", "WILL", "MY", "ONE", "ALL", "WOULD", "THERE", "THEIR", "WHAT", "SO", "UP", "OUT", "IF", "ABOUT", "WHO", "GET", "WHICH", "GO", "ME", "WHEN", "MAKE", "CAN", "LIKE", "TIME", "NO", "JUST", "HIM", "KNOW", "TAKE", "PEOPLE", "INTO", "YEAR", "YOUR", "GOOD", "SOME", "COULD", "THEM", "SEE", "OTHER", "THAN", "THEN", "NOW", "LOOK", "ONLY", "COME", "ITS", "OVER", "THINK", "ALSO", "BACK", "AFTER", "USE", "TWO", "HOW", "OUR", "WORK", "FIRST", "WELL", "WAY", "EVEN", "NEW", "WANT", "BECAUSE", "ANY", "THESE", "GIVE", "DAY", "MOST", "US"]
 
+def get_punctuation(paper):
+	punct_list = []
+	i = 0
+	for char in paper:
+		c = ord(char)
+		if (c >= 33 and c <= 47) or (c >= 58 and c <= 64) or (c >=91 and c <=96) or (c >= 123 and c <=126):
+			punct_list.append((char, i))
+		i = i +1
+	return punct_list
+
+def get_caps(paper):
+	caps = []
+	i = 0
+	for char in paper:
+		c = ord(char)
+		if(c >= 65 and c <= 90):
+			caps.append(i)
+		i = i+1
+	return caps
+
 def prep_paper(paper):
 	return paper.strip().replace("?",".").replace("!",".").upper()
 
@@ -26,6 +46,7 @@ def split_words(phrases):
 			words.append(some_word[i]);
 	return words
 
+#TODO this is dumb
 def index_words(words):
 	indexing = []
 	for i in range(len(words)):
