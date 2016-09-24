@@ -60,8 +60,4 @@ def adjust_weight_col(weight, new_size):
 def resize(weight):
 	return weight[0:5,0:5]
 
-#weights = load_weights()
-#adjust_weight_row(weights[0],13)
-#adjust_weight_col(weights[7],15)
 
-#save_weights(load_weights())

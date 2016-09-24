@@ -71,15 +71,3 @@ def word_vec_convert(words):
 		vector[i,0] = hash_word(words[i])
 	return vector
 
-#paper = sys.argv[1]
-#paper = prep_paper(paper)
-#sentences = split_sentences(paper)
-#phrases = split_phrases(sentences)
-#words = split_words(phrases)
-#words = clean_empties(words)
-#indexing = index_words(words)
-#words = clean_common(words)
-#print (words)
-#print ("Table:")
-#print(frequency_table(words))
-#print(indexing)
