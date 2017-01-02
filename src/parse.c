@@ -4,7 +4,21 @@
 
 #include "parse.h"
 
-Text* parse_input(const char* filename)
+int is_symbol(char a)
+{
+	return (a>32 && a<48) || (a>57 && a<65) || (a>90 && a<97) || (a>122 && a<126);
+}
+
+int contains_symbol(char* a)
+{
+	int i;
+	for(i=0;a[i];i++)
+		if(is_symbol(a[i]))
+			return i;
+	return -1;
+}
+
+char* read_file(const char* filename)
 {
 	FILE* file = fopen(filename, "r");
 	if(file == NULL)
@@ -23,16 +37,58 @@ Text* parse_input(const char* filename)
 		input = realloc(input, size);
 		strcat(input, buff);
 	}
+	
+	return input;
+}
 
-	//Reads into buffer by words
+Text* parse_input(const char* filename)
+{
+	char* input = read_file(filename);
+	Text* text = malloc(sizeof(Text));
+
+	//loads into struct by each word
 	char** words = NULL;
 	words = malloc(sizeof(char*)*512); //mem for 512 words
-	size = 0;
+	int size = 0;
 	char* word = strtok(input, " ");
 	while(word != NULL)
 	{
-		words[size] = malloc(strlen(word)+1); //mem for the word\0
-		strcpy(words[size], word);
+		int word_size = strlen(word)+1;
+		words[size] = malloc(word_size);
+		
+		//symbol removal
+		int index = contains_symbol(word);
+		int start = index;
+		if(index > -1)
+		{
+			word_size--;
+			//cpy up to the symbol
+			strncpy(words[size], word, index);
+
+			//start word after symbol
+			word += index+1;
+			index = contains_symbol(word);
+
+			//Repeat for multiple symbols in a word
+			//e.g. state-of-the-art
+			while(index > -1)
+			{
+				start += index;
+				word_size--;
+				strncpy(words[size]+index, word, index);
+				word += index+1; 
+				index = contains_symbol(word);
+			}
+			//Copy last piece of word in
+			strncpy(words[size]+start, word, strlen(word));
+			words[size][word_size-1] = '\0';
+
+			//reallocate space to free unused memory
+			words[size] = realloc(words[size], word_size);
+		}else
+		{	
+			strcpy(words[size], word);
+		}
 		size++;
 		if(size%512==0)
 		{
@@ -42,7 +98,7 @@ Text* parse_input(const char* filename)
 	}
 	free(input);
 
-	Text* text = malloc(sizeof(Text));
+
 	text->size = size;
 	text->input = words;
 

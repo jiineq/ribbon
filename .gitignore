@@ -2,5 +2,5 @@ hightlight/
 *.pyc
 *.swp
 *.html
-./bin/*
-./obj/*
+./bin
+./obj

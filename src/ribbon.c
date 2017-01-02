@@ -10,7 +10,6 @@ int main(int argc, char* argv[])
 		printf("usage: ribbon input file..\n");
 	else
 	{
-		printf("input file:%s\n", argv[1]);
 		Text* text = parse_input(argv[1]);
 		int i;
 		for(i = 0; i<text->size; i++)
