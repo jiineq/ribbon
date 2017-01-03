@@ -10,6 +10,7 @@ LIBDIR = ./lib
 SRCS = $(SRCDIR)/ribbon.c\
 $(SRCDIR)/parse.c\
 $(SRCDIR)/linkedlist.c\
+$(SRCDIR)/matrix.c\
 
 
 INCLUDE = $(addprefix -I ,$(INCDIR))
