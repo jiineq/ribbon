@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "parse.h"
+#include "linkedlist.h"
 
 int main(int argc, char* argv[])
 {
@@ -16,6 +17,14 @@ int main(int argc, char* argv[])
 		{
 			printf("%s ",(text->input)[i]);
 		}
+		printf("\n");
+		const char* symbols = SYMBOLS;
+		for(i=0;i<32;i++)
+		{
+			printf("%c: ", symbols[i]);
+			list_print((text->symbols)+i);
+		}
+		printf("\n");
 		free_text(text);
 	}
 	return 0;

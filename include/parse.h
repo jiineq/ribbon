@@ -1,12 +1,13 @@
 #ifndef PARSE
 #define PARSE
-#define SYMBOLS "!\"#$%&\'()*+,./:;<=>?@[\\]^_`{|}~"
-#define NUM_SYMBOLS 31
+#include "linkedlist.h"
+#define SYMBOLS "!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~"
+#define NUM_SYMBOLS 32
 
 typedef struct Text
 {
 	char** input;
-	
+	LinkedList symbols[NUM_SYMBOLS]; //Each linkedlist is an array element which corresponds to a symbol, each pair of elements in the linkedlist corresponds to the index of the word in the text and the index of the chars in the word
 	int size;
 } Text;
 
@@ -30,6 +31,9 @@ int is_nonprintable(char a);
 
 //index of first nonprintable character
 int contains_nonprintable(char* a);
+
+//binary search through the symbol table
+int symbol_bin_search(char key);
 
 #endif
 

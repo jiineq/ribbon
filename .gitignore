@@ -4,3 +4,5 @@ hightlight/
 *.html
 ./bin
 ./obj
+.gdb_history
+peda-session-Ribbon*
