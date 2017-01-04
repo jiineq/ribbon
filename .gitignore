@@ -3,6 +3,8 @@ hightlight/
 *.swp
 *.html
 ./bin/*
+./bin/
+./obj/
 ./obj/*
 .gdb_history
 peda-session-Ribbon*
