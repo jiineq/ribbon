@@ -11,15 +11,16 @@ SRCS = $(SRCDIR)/ribbon.c\
 $(SRCDIR)/parse.c\
 $(SRCDIR)/linkedlist.c\
 $(SRCDIR)/matrix.c\
+$(SRCDIR)/neural.c\
 
 
 INCLUDE = $(addprefix -I ,$(INCDIR))
-#LINKS =
+LINKS = -lm
 LIBS = $(addprefix -L, $(LIBDIR))
 
 OBJS = ${SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o}
 
-CFLAGS = $(OPTS) $(INCLUDE) $(LIBS) #$(LINKS)
+CFLAGS = $(OPTS) $(INCLUDE) $(LIBS) $(LINKS)
 
 TARGET = $(BINDIR)/Ribbon
 
